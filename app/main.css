@@ -1,0 +1,7 @@
+body {
+	background: cornsilk;
+}
+
+:local(.redButton){
+	color: blue;
+}
