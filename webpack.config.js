@@ -46,6 +46,7 @@ switch(process.env.npm_lifecycle_event) {
 				devtool: 'source-map',
 				output: {
 					path: PATHS.build,
+					publicPath: '/webpack-demo/'
 					filename: '[name].[chunkhash].min.js',
 					chunkFilename: '[chunkhash].js'
 				}
