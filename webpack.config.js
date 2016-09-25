@@ -9,11 +9,13 @@ const pkg = require('./package.json');
 
 const PATHS = {
 	app: path.join(__dirname, 'app'),
+	style: path.join(__dirname, 'app', 'main.css'),
 	build: path.join(__dirname, 'build')
 };
 
 const common = {
 	entry : {
+		style: PATHS.style,
 		app: PATHS.app
 	},
 
@@ -24,7 +26,8 @@ const common = {
 
 	plugins: [
 		new HtmlWebpackPlugin({
-			title: 'Webpack demo'
+			title: 'Webpack demo',
+			inject: 'body'
 		})
 	]
 };
@@ -53,7 +56,7 @@ switch(process.env.npm_lifecycle_event) {
 			}),
 			parts.clean(PATHS.build),
 			parts.minify(),
-			parts.setupCSS(PATHS.app)
+			parts.extractCSS(PATHS.style)
 		);
 		break;
 	default:
@@ -63,7 +66,7 @@ switch(process.env.npm_lifecycle_event) {
 				devtool: 'eval-source-map'
 			},
 			parts.minify(),
-			parts.setupCSS(PATHS.app),
+			parts.setupCSS(PATHS.style),
 			parts.devServer({
 				host: process.env.HOST,
 				port: process.env.PORT
