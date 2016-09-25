@@ -51,6 +51,7 @@ switch(process.env.npm_lifecycle_event) {
 				name: 'vendor',
 				entries: Object.keys(pkg.dependencies)
 			}),
+			parts.clean(PATHS.build),
 			parts.minify(),
 			parts.setupCSS(PATHS.app)
 		);
