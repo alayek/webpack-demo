@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
 const validate = require('webpack-validator');
@@ -25,25 +24,23 @@ const common = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			title: 'Webpack demo'
-		}),
-		new webpack.DefinePlugin({
-            'process.env': {
-                // This has effect on the react lib size
-                'NODE_ENV': JSON.stringify('production'),
-            }
-        }),
+		})
 	]
 };
 
 let config;
 
-switch(process.env.npm_lifecycle_events) {
+switch(process.env.npm_lifecycle_event) {
 	case 'build':
 		config = merge(
 			common, 
 			{
 				devtool: 'source-map'
 			},
+			parts.setFreeVariable(
+				'process.env.NODE_ENV',
+				'production'
+			),
 			parts.minify(),
 			parts.setupCSS(PATHS.app)
 		);
